@@ -5,9 +5,9 @@ export const config = {
 
 export default async function handler(req: Request) {
   const body = await req.json();
-  const key = process.env.MODEL_API_KEY;
+  const key = process.env.API_KEY;
 
-  const apiRes = await fetch("https://your-model.com/v1/chat", {
+  const apiRes = await fetch("https://open.bigmodel.cn/api/paas/v4/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

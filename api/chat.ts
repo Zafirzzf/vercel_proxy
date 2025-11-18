@@ -1,29 +1,28 @@
 export const config = {
-  runtime: "nodejs18.x"
+  runtime: "nodejs"
 };
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
   try {
     const body = await req.json();
 
-    const apiRes = await fetch("https://your-model.com/chat", {
+    const apiRes = await fetch("https://your-model.com/v1/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.API_KEY}`
+        "Authorization": `Bearer ${process.env.API_KEY}`,
       },
       body: JSON.stringify({
-        prompt: body.prompt
-      })
+        prompt: body.prompt,
+      }),
     });
 
     const data = await apiRes.json();
 
     return new Response(JSON.stringify(data), {
       status: 200,
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
-
   } catch (err: any) {
     return new Response(JSON.stringify({ error: err.message }), {
       status: 500,

@@ -2,30 +2,21 @@ export const config = {
   runtime: "nodejs"
 };
 
-export default async function handler(req: any, res: any) {
-  try {
-    const body = await req.json();
+export default async function handler(req: any) {
+  const body = await req.json();
 
-    const apiRes = await fetch("https://your-model.com/v1/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.API_KEY}`,
-      },
-      body: JSON.stringify({
-        prompt: body.prompt,
-      }),
-    });
+  const key = process.env.MODEL_API_KEY;  // ✔ 类型 + 运行时 都安全
 
-    const data = await apiRes.json();
+  const apiRes = await fetch("https://your-model.com/v1/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${key}`
+    },
+    body: JSON.stringify({ prompt: body.prompt })
+  });
 
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (err: any) {
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
-    });
-  }
+  return new Response(await apiRes.text(), {
+    headers: { "Content-Type": "application/json" }
+  });
 }

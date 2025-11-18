@@ -20,5 +20,9 @@
   "homepage": "https://github.com/Zafirzzf/vercel_proxy#readme",
   "dependencies": {
     "openai": "^6.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
   }
 }

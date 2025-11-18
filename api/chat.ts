@@ -1,11 +1,11 @@
+// api/chat.ts
 export const config = {
-  runtime: "nodejs"
+  runtime: "edge"
 };
 
-export default async function handler(req: any) {
+export default async function handler(req: Request) {
   const body = await req.json();
-
-  const key = process.env.MODEL_API_KEY;  // ✔ 类型 + 运行时 都安全
+  const key = process.env.MODEL_API_KEY;
 
   const apiRes = await fetch("https://your-model.com/v1/chat", {
     method: "POST",
